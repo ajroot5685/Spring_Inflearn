@@ -23,7 +23,7 @@ public class JpaMain {
 
             em.persist(member1);
             em.persist(member2);
-            
+
             System.out.println("====================");
 
             tx.commit();
