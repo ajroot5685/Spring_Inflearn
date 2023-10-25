@@ -33,23 +33,36 @@ public class PostApiController {
     @GetMapping("/post/api/filtering")
     public List<Post> filtering(
             @RequestParam("filter") String filter
-    ){
+    ) {
         return postService.filtering(filter);
     }
 
     @GetMapping("/post/api/detail/{postId}")
-    public Post detail(@PathVariable("postId") Long postId){
+    public Post detail(@PathVariable("postId") Long postId) {
         return postService.findOne(postId);
     }
 
-    @Transactional
-    @PostMapping("post/api/create")
-    public Long create(@Valid PostForm form, BindingResult result){
+    @PostMapping("/post/api/create")
+    public Long create(@Valid PostForm form, BindingResult result) {
         if (result.hasErrors()) {
             return (long) -1;
         }
         Post post = new Post(form.getTitle(), form.getContent());
 
         return postService.create(post);
+    }
+
+    @PostMapping("/post/api/update/{postId}")
+    public Long updatePost(@PathVariable Long postId, @Valid PostForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            return (long) -1;
+        }
+
+        return postService.update(postId, form.getTitle(), form.getContent());
+    }
+
+    @PostMapping("/post/api/delete/{postId}")
+    public Long deletePost(@PathVariable Long postId){
+        return postService.delete(postId);
     }
 }

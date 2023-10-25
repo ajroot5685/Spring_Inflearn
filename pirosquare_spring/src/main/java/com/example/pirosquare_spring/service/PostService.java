@@ -31,10 +31,12 @@ public class PostService {
     }
 
     @Transactional
-    public void update(Long id, String title, String content){
+    public Long update(Long id, String title, String content){
         Post post = postRepository.find(id);
         post.setTitle(title);
         post.setContent(content);
+
+        return post.getId();
     }
 
     public List<Post> search(String keyword){
@@ -50,5 +52,19 @@ public class PostService {
         }else{
             return postRepository.findAll();
         }
+    }
+
+    @Transactional
+    public Long delete(Long id){
+        Post post = postRepository.find(id);
+        if (post==null){
+            return (long)-1;
+        }
+
+        Long deletedId = post.getId();
+
+        postRepository.delete(post);
+
+        return deletedId;
     }
 }

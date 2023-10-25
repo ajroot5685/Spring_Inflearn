@@ -35,4 +35,8 @@ public class PostRepository {
     public List<Post> orderingWithCreatetime(String filter){
         return em.createQuery("select p from Post p order by p.createtime desc").getResultList();
     }
+
+    public void delete(Post post){
+        em.remove(post);
+    }
 }
