@@ -1,7 +1,9 @@
 package com.example.pirosquare_spring.service;
 
 import com.example.pirosquare_spring.domain.Post;
+import com.example.pirosquare_spring.domain.User;
 import com.example.pirosquare_spring.repository.PostRepository;
+import com.example.pirosquare_spring.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +16,13 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @Transactional
-    public Long create(Post post){
+    public Long create(Long userId, String title, String content){
+        User user = userRepository.find(userId);
+
+        Post post = Post.createPost(user, title, content);
         postRepository.save(post);
 
         return post.getId();

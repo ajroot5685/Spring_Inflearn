@@ -2,7 +2,9 @@ package com.example.pirosquare_spring.controller;
 
 import com.example.pirosquare_spring.controller.form.PostForm;
 import com.example.pirosquare_spring.domain.Post;
+import com.example.pirosquare_spring.domain.User;
 import com.example.pirosquare_spring.service.PostService;
+import com.example.pirosquare_spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,14 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final UserService userService;
 
     @GetMapping("/post/new")
     public String createForm(Model model){
+
+        List<User> users = userService.findUsers();
+
+        model.addAttribute("users", users);
         model.addAttribute("postForm", new PostForm());
         return "posts/createPostForm";
     }
@@ -32,14 +39,12 @@ public class PostController {
     * @Valid 뒤에 이 변수를 설정하면 유효성 검사에 실패했을때 오류를 result에 담아준다.
     */
     @PostMapping("/post/new")
-    public String create(@Valid PostForm form, BindingResult result){
-        if (result.hasErrors()) {
-            return "posts/createPostForm";
-        }
-
-        Post post = new Post(form.getTitle(), form.getContent());
-
-        postService.create(post);
+    public String create(
+            @RequestParam("userId") Long userId,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content
+    ){
+        postService.create(userId, title, content);
 
         return "redirect:/post";
     }

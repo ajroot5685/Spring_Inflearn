@@ -42,13 +42,12 @@ public class PostApiController {
     }
 
     @PostMapping("/post/api/create")
-    public Long create(@Valid PostForm form, BindingResult result) {
-        if (result.hasErrors()) {
-            return (long) -1;
-        }
-        Post post = new Post(form.getTitle(), form.getContent());
-
-        return postService.create(post);
+    public Long create(
+            @RequestParam("userId") Long userId,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content
+    ) {
+        return postService.create(userId, title, content);
     }
 
     @PostMapping("/post/api/update/{postId}")

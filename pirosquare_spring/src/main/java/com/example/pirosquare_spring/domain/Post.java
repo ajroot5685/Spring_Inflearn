@@ -3,10 +3,7 @@ package com.example.pirosquare_spring.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,19 +15,32 @@ public class Post {
     @Column(name = "post_id")
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     private String title;
 
     private String content;
     private LocalDateTime createtime;
     private LocalDateTime updatetime;
 
+    public void setUser(User user){
+        this.user = user;
+        user.getPosts().add(this);
+    }
+
     public Post() {
     }
 
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-        createtime=LocalDateTime.now();
-        updatetime=LocalDateTime.now();
+    public static Post createPost(User user, String title, String content) {
+        Post post= new Post();
+        post.setUser(user);
+        post.setTitle(title);
+        post.setContent(content);
+        post.setCreatetime(LocalDateTime.now());
+        post.setUpdatetime(LocalDateTime.now());
+
+        return post;
     }
 }
