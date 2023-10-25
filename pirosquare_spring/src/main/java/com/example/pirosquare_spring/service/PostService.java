@@ -36,4 +36,19 @@ public class PostService {
         post.setTitle(title);
         post.setContent(content);
     }
+
+    public List<Post> search(String keyword){
+        return postRepository.titleSearchWithLike(keyword);
+    }
+
+    public List<Post> filtering(String filter){
+        if (filter.equals("latest")){
+            return postRepository.orderingWithCreatetime(filter);
+        }else if(filter.equals("popular")){
+            // 좋아요 구현 안되어있음
+            return postRepository.findAll();
+        }else{
+            return postRepository.findAll();
+        }
+    }
 }

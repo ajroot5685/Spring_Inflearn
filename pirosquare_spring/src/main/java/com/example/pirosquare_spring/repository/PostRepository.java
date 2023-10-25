@@ -25,23 +25,14 @@ public class PostRepository {
         return em.createQuery("select p from Post p", Post.class).getResultList();
     }
 
-    public List<Post> search(String keyword){
-        keyword = '%'+keyword+'%';
-        return em.createQuery("select p from Post p where title like :keyword", Post.class)
-                .setParameter("keyword", keyword)
+    public List<Post> titleSearchWithLike(String title){
+        title = '%'+title+'%';
+        return em.createQuery("select p from Post p where title like :title", Post.class)
+                .setParameter("title", title)
                 .getResultList();
     }
 
-    public List<Post> filtering(String filter){
-        List<Post> posts = null;
-        if (filter.equals("latest")){
-            posts = em.createQuery("select p from Post p order by p.createtime desc").getResultList();
-        }else if (filter.equals("popular")){
-            // 좋아요 없음
-            posts = em.createQuery("select p from Post p").getResultList();
-        }else{
-            posts = em.createQuery("select p from Post p").getResultList();
-        }
-        return posts;
+    public List<Post> orderingWithCreatetime(String filter){
+        return em.createQuery("select p from Post p order by p.createtime desc").getResultList();
     }
 }

@@ -2,7 +2,7 @@ package com.example.pirosquare_spring.api;
 
 import com.example.pirosquare_spring.controller.PostForm;
 import com.example.pirosquare_spring.domain.Post;
-import com.example.pirosquare_spring.repository.PostRepository;
+import com.example.pirosquare_spring.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -15,35 +15,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostApiController {
 
-    private final PostRepository postRepository;
+    private final PostService postService;
 
     // 게시판 메인
     @GetMapping("/post/api/get_all")
     public List<Post> getAll() {
-        List<Post> all = postRepository.findAll();
-        return all;
+        return postService.findPosts();
     }
 
     @GetMapping("/post/api/search")
     public List<Post> search(
             @RequestParam("keyword") String keyword
     ) {
-        List<Post> result = postRepository.search(keyword);
-        return result;
+        return postService.search(keyword);
     }
 
     @GetMapping("/post/api/filtering")
     public List<Post> filtering(
             @RequestParam("filter") String filter
     ){
-        List<Post> result = postRepository.filtering(filter);
-        return result;
+        return postService.filtering(filter);
     }
 
     @GetMapping("/post/api/detail/{postId}")
     public Post detail(@PathVariable("postId") Long postId){
-        Post post = postRepository.find(postId);
-        return post;
+        return postService.findOne(postId);
     }
 
     @Transactional
@@ -52,12 +48,8 @@ public class PostApiController {
         if (result.hasErrors()) {
             return (long) -1;
         }
-        System.out.println((long)-1);
-
         Post post = new Post(form.getTitle(), form.getContent());
 
-        postRepository.save(post);
-
-        return post.getId();
+        return postService.create(post);
     }
 }
