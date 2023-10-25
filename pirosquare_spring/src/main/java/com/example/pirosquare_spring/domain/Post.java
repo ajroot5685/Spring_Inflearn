@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -20,6 +21,8 @@ public class Post {
     private String title;
 
     private String content;
+    private LocalDateTime createtime;
+    private LocalDateTime updatetime;
 
     public Post() {
     }
@@ -27,5 +30,7 @@ public class Post {
     public Post(String title, String content) {
         this.title = title;
         this.content = content;
+        createtime=LocalDateTime.now();
+        updatetime=LocalDateTime.now();
     }
 }
