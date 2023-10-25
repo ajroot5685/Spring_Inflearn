@@ -1,10 +1,9 @@
 package com.example.pirosquare_spring.api;
 
-import com.example.pirosquare_spring.controller.PostForm;
+import com.example.pirosquare_spring.controller.form.PostForm;
 import com.example.pirosquare_spring.domain.Post;
 import com.example.pirosquare_spring.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 

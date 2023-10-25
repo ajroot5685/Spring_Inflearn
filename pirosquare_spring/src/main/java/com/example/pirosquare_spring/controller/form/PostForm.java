@@ -1,4 +1,4 @@
-package com.example.pirosquare_spring.controller;
+package com.example.pirosquare_spring.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;

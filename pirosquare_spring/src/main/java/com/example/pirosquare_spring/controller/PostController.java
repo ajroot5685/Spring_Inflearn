@@ -1,10 +1,9 @@
 package com.example.pirosquare_spring.controller;
 
+import com.example.pirosquare_spring.controller.form.PostForm;
 import com.example.pirosquare_spring.domain.Post;
 import com.example.pirosquare_spring.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
