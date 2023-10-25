@@ -29,4 +29,8 @@ public class UserService {
     public User findOne(Long userId){
         return userRepository.find(userId);
     }
+
+    public List<User> findUsersWithPosts(int offset, int limit){
+        return userRepository.findAllWithPosts(offset, limit);
+    }
 }
