@@ -1,26 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrinkto-fit=no">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-
-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-  <!-- Custom styles for this template -->
-  <link href="/css/jumbotron-narrow.css" rel="stylesheet">
-  <title>Hello, world!</title>
-</head>
+<head th:replace="fragments/header :: header" />
 <body>
 <div class="container">
-  <div class="header" th:fragment="bodyHeader">
-    <ul class="nav nav-pills pull-right">
-      <li><a href="/">Home</a></li>
-    </ul>
-    <a href="/"><h3 class="text-muted">HELLO SHOP</h3></a>
-    <a class="btn btn-lg btn-secondary" href="/new">회원 가입</a>
-  </div>
+  <div th:replace="fragments/bodyHeader :: bodyHeader" />
   <div>
     <table class="table table-striped">
       <thead>
@@ -37,16 +20,14 @@ ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         <td th:text="${post.title}"></td>
         <td th:text="${post.content}"></td>
         <td>
-          <a href="#" th:href="@{/{id}/edit (id=${post.id})}"
+          <a href="#" th:href="@{/post/{id}/edit (id=${post.id})}"
              class="btn btn-primary" role="button">수정</a>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
-  <div class="footer" th:fragment="footer">
-    <p>&copy; Hello Shop V2</p>
-  </div>
+  <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
 </html>

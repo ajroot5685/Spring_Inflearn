@@ -19,7 +19,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/new")
+    @GetMapping("/post/new")
     public String createForm(Model model){
         model.addAttribute("postForm", new PostForm());
         return "posts/createPostForm";
@@ -32,7 +32,7 @@ public class PostController {
     * BindingResult
     * @Valid 뒤에 이 변수를 설정하면 유효성 검사에 실패했을때 오류를 result에 담아준다.
     */
-    @PostMapping("/new")
+    @PostMapping("/post/new")
     public String create(@Valid PostForm form, BindingResult result){
         if (result.hasErrors()) {
             return "posts/createPostForm";
@@ -42,24 +42,24 @@ public class PostController {
 
         postService.create(post);
 
-        return "redirect:/";
+        return "redirect:/post";
     }
 
-//    @GetMapping("/")
-//    public String list(Model model) {
-//        List<Post> posts = postService.findPosts();
-//        model.addAttribute("posts", posts);
-//        return "/posts/postList";
-//    }
-    @GetMapping("/")
-    @ResponseBody
-    public ResponseEntity<List<Post>> list(Model model) {
+    @GetMapping("/post")
+    public String list(Model model) {
         List<Post> posts = postService.findPosts();
-
-        return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
+        model.addAttribute("posts", posts);
+        return "/posts/postList";
     }
+//    @GetMapping("/")
+//    @ResponseBody
+//    public ResponseEntity<List<Post>> list(Model model) {
+//        List<Post> posts = postService.findPosts();
+//
+//        return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
+//    }
 
-    @GetMapping("/{postId}/edit")
+    @GetMapping("/post/{postId}/edit")
     public String update(@PathVariable("postId") Long postId, Model model){
         Post post = postService.findOne(postId);
 
@@ -72,7 +72,7 @@ public class PostController {
         return "posts/updatePostForm";
     }
 
-    @PostMapping("/{postId}/edit")
+    @PostMapping("/post/{postId}/edit")
     public String updatePost(@PathVariable Long postId, @ModelAttribute("form") PostForm form){
         postService.update(postId, form.getTitle(), form.getContent());
         return "redirect:/";

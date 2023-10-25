@@ -1,11 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<div class="header" th:fragment="bodyHeader">
-  <ul class="nav nav-pills pull-right">
-    <li><a href="/">Home</a></li>
-  </ul>
-  <a href="/"><h3 class="text-muted">HELLO SHOP</h3></a>
-</div>
+<head th:replace="fragments/header :: header" />
 <style>
  .fieldError {
  border-color: #bd2130;
@@ -13,12 +8,7 @@
 </style>
 <body>
 <div class="container">
-  <div class="header" th:fragment="bodyHeader">
-    <ul class="nav nav-pills pull-right">
-      <li><a href="/">Home</a></li>
-    </ul>
-    <a href="/"><h3 class="text-muted">HELLO PIROSQUARE</h3></a>
-  </div>
+  <div th:replace="fragments/bodyHeader :: bodyHeader"/>
   <form role="form" th:object="${postForm}"
         method="post">
     <input type="hidden" th:field="*{id}" />
@@ -38,9 +28,7 @@
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <br/>
-  <div class="footer" th:fragment="footer">
-    <p>&copy; Hello Shop V2</p>
-  </div>
+  <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
 </html>
