@@ -1,7 +1,7 @@
 package com.example.practicestart.service;
 
 import com.example.practicestart.domain.Item;
-import com.example.practicestart.repository.MemoryItemRepository;
+import com.example.practicestart.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ItemService {
 
-    private final MemoryItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
     public Item save(Item item){
         return itemRepository.save(item);

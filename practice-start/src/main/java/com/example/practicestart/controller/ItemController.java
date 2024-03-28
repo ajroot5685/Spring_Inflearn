@@ -11,18 +11,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequestMapping("/items")
 @RequiredArgsConstructor
-public class MainController {
-
+public class ItemController {
 
     private final ItemService itemService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "redirect:/items";
-    }
-
-    @GetMapping("/items")
+    @GetMapping("")
     public String items(Model model) {
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
@@ -30,19 +25,19 @@ public class MainController {
         return "items";
     }
 
-    @GetMapping("/items/{itemId}")
-    public String item(@PathVariable long itemId, Model model) {
+    @GetMapping("/{itemId}")
+    public String item(@PathVariable(name = "itemId") long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         model.addAttribute("item", item);
         return "item";
     }
 
-    @GetMapping("/items/add")
+    @GetMapping("/add")
     public String addForm() {
         return "addForm";
     }
 
-    @PostMapping("/items/add")
+    @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes) {
         Item savedItem = itemService.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());

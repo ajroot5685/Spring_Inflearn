@@ -1,12 +1,12 @@
-package com.example.practicestart.repository;
+package com.example.practice.repository;
 
-import com.example.practicestart.domain.Item;
+import com.example.practice.domain.Item;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
 @Repository
-public class MemoryItemRepository implements ItemRepository {
+public class MemoryItemRepository {
 
     private static final Map<Long, Item> store = new HashMap<>();
     private static long sequence = 0L;

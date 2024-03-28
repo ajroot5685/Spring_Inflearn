@@ -1,4 +1,4 @@
-package com.example.practicestart.domain;
+package com.example.practice.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,10 +9,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 public class Item {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
