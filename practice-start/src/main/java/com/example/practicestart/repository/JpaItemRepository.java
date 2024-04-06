@@ -14,7 +14,6 @@ import java.util.Optional;
 
 @Slf4j
 @Repository
-@Transactional
 public class JpaItemRepository implements ItemRepository {
 
     private final EntityManager em;
@@ -41,5 +40,23 @@ public class JpaItemRepository implements ItemRepository {
 
         TypedQuery<Item> query = em.createQuery(jpql, Item.class);
         return query.getResultList();
+    }
+
+    @Override
+    public Item update(Item item) {
+        Item updateItem = em.find(Item.class, item.getId());
+
+        updateItem.setItemName(item.getItemName());
+        updateItem.setPrice(item.getPrice());
+        updateItem.setQuantity(item.getQuantity());
+
+        return updateItem;
+    }
+
+    @Override
+    public void delete(long itemId) {
+        Item deleteItem = em.find(Item.class, itemId);
+
+        em.remove(deleteItem);
     }
 }

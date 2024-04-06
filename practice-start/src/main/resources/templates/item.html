@@ -53,6 +53,12 @@
                     th:onclick="|location.href='@{/items}'|"
                     type="button">목록으로</button>
         </div>
+        <div class="col">
+            <form method="post" th:action="@{/items/{itemId}/delete(itemId=${item.id})}">
+                <button type="submit" class="w-100 btn btn-danger btn-lg">상품 삭제</button>
+            </form>
+        </div>
+
     </div>
 
 </div> <!-- /container -->
