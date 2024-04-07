@@ -111,6 +111,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom{
                 );
 
         return PageableExecutionUtils.getPage(content, pageable, () -> countQuery.fetchCount());
+//        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchCount);
     }
 
     private BooleanExpression usernameEq(String username) {
