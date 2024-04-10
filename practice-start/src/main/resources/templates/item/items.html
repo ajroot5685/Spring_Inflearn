@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+          href="../css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>상품 목록</h2>
+        <h2><a href="/">상품 목록</a></h2>
     </div>
 
 <!--
@@ -33,7 +33,7 @@
         <div class="col">
             <div class="col">
                 <button class="btn btn-primary float-end"
-                        onclick="location.href='addForm.html'"
+                        onclick="location.href='item/addForm.html'"
                         th:onclick="|location.href='@{/items/add}'|"
                         type="button">상품 등록
                 </button>

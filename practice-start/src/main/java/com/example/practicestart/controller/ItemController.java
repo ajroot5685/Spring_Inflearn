@@ -22,19 +22,19 @@ public class ItemController {
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
 
-        return "items";
+        return "item/items";
     }
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable(name = "itemId") long itemId, Model model) {
         Item item = itemService.findById(itemId).get();
         model.addAttribute("item", item);
-        return "item";
+        return "item/item";
     }
 
     @GetMapping("/add")
     public String addForm() {
-        return "addForm";
+        return "item/addForm";
     }
 
     @PostMapping("/add")
@@ -52,7 +52,7 @@ public class ItemController {
 
         model.addAttribute("item", editItem);
 
-        return "editForm";
+        return "item/editForm";
     }
 
     @PostMapping("/{itemId}/edit")

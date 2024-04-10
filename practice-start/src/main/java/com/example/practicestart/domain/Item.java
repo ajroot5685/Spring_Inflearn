@@ -19,4 +19,22 @@ public class Item {
     private String itemName;
     private Integer price;
     private Integer quantity;
+
+    public Item(String name, int price, int quantity) {
+        this.itemName = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public void addStock(int quantity) {
+        this.quantity += quantity;
+    }
+
+    public void removeStock(int quantity) {
+        int restStock = this.quantity - quantity;
+        if (restStock < 0) {
+            throw new RuntimeException("need more stock");
+        }
+        this.quantity = restStock;
+    }
 }

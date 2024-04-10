@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+          href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 560px;
@@ -18,7 +18,7 @@
         <h2>상품 등록 폼</h2>
     </div>
 
-    <form action="item.html" th:action method="post">
+    <form action="item/item.html" th:action method="post">
         <div>
             <label for="itemName">상품명</label>
             <input type="text" id="itemName" name="itemName" class="form-control" placeholder="이름을 입력하세요">
@@ -40,7 +40,7 @@
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
-                        onclick="location.href='items.html'"
+                        onclick="location.href='item/items.html'"
                         th:onclick="|location.href='@{/items}'|"
                         type="button">취소</button>
             </div>

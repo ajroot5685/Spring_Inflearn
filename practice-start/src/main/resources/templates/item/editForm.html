@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
-          href="css/bootstrap.min.css" rel="stylesheet">
+          href="../css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 560px;
@@ -18,7 +18,7 @@
         <h2>상품 수정 폼</h2>
     </div>
 
-    <form action="item.html" th:action method="post">
+    <form action="item/item.html" th:action method="post">
         <div>
             <label for="id">상품 ID</label>
             <input type="text" id="id" name="id" class="form-control" value="1" th:value="${item.id}" readonly>
@@ -44,7 +44,7 @@
             </div>
             <div class="col">
                 <button class="w-100 btn btn-secondary btn-lg"
-                        onclick="location.href='item.html'"
+                        onclick="location.href='item/item.html'"
                         th:onclick="|location.href='@{/items/{itemId}(itemId=${item.id})}'|"
                         type="button">취소</button>
             </div>
