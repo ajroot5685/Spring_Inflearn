@@ -9,7 +9,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
+/**
+ * Inmemory 방식으로 회원을 관리하려면 db로부터 접근하는 UserDetailsService 로직이 빈으로 등록되어 있으면 안된다.
+ */
+//@Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
