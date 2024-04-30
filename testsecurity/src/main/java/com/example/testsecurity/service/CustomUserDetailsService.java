@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 /**
  * Inmemory 방식으로 회원을 관리하려면 db로부터 접근하는 UserDetailsService 로직이 빈으로 등록되어 있으면 안된다.
+ * 정확하게는 2개 이상의 UserDetailsService들이 빈으로 등록되어 있으면 AuthenticationProvider에서 수동으로 설정해줘야한다.
+ * 1개일 때만 자동으로 설정된다.
  */
-//@Service
+@Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
