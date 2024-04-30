@@ -37,8 +37,8 @@ public class SecurityConfig {
                 );
 
         // csrf 설정
-        http
-                .csrf((auth) -> auth.disable());
+//        http
+//                .csrf((auth) -> auth.disable());
 
         // 세션 설정
         http
