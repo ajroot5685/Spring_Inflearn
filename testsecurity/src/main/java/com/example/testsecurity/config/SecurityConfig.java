@@ -48,15 +48,21 @@ public class SecurityConfig {
                 );
 
         // 폼 로그인 설정
-//        http
-//                .formLogin((auth) -> auth.loginPage("/login")
-//                        .loginProcessingUrl("/loginProc")
-//                        .permitAll()
-//                );
-
-        // basic 로그인 설정
         http
-                .httpBasic(Customizer.withDefaults());
+                .formLogin((auth) -> auth.loginPage("/login")
+                        .loginProcessingUrl("/loginProc")
+                        .permitAll()
+                );
+
+        // 로그아웃 설정 - 폼 로그인(GET)
+        http
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                );
+
+        // basic 로그인 설정 - 응답 헤더에 아이디와 비밀번호를 입력
+//        http
+//                .httpBasic(Customizer.withDefaults());
 
         // csrf 설정
 //        http
