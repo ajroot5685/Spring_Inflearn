@@ -1,5 +1,6 @@
 package com.example.testJWT.config;
 
+import com.example.testJWT.jwt.JWTFilter;
 import com.example.testJWT.jwt.JWTUtil;
 import com.example.testJWT.jwt.LoginFilter;
 import org.springframework.context.annotation.Bean;
@@ -61,6 +62,9 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "join").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                 );
+
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class);
