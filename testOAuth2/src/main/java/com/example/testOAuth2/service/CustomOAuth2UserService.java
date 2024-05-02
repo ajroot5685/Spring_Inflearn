@@ -1,5 +1,6 @@
 package com.example.testOAuth2.service;
 
+import com.example.testOAuth2.dto.CustomOAuth2User;
 import com.example.testOAuth2.dto.GoogleResponse;
 import com.example.testOAuth2.dto.NaverResponse;
 import com.example.testOAuth2.dto.OAuth2Response;
@@ -29,7 +30,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             return null;
         }
-    }
 
-    // 나머지 구현
+        String role = "ROLE_USER";
+
+        return new CustomOAuth2User(oAuth2Response, role);
+    }
 }
