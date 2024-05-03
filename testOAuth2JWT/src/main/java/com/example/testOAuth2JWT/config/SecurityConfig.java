@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .userInfoEndpoint((userInfoEndpointConfig -> userInfoEndpointConfig
                                 .userService(customOAuth2UserService)))
                 );
-        
+
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
