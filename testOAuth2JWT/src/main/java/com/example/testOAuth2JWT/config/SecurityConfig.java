@@ -1,5 +1,7 @@
 package com.example.testOAuth2JWT.config;
 
+import com.example.testOAuth2JWT.jwt.JWTUtil;
+import com.example.testOAuth2JWT.oauth2.CustomSuccessHandler;
 import com.example.testOAuth2JWT.service.CustomOAuth2UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.Customizer;
@@ -15,10 +17,13 @@ import org.springframework.stereotype.Component;
 public class SecurityConfig {
 
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final CustomSuccessHandler customSuccessHandler;
+    private final JWTUtil jwtUtil;
 
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
-
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil) {
         this.customOAuth2UserService = customOAuth2UserService;
+        this.customSuccessHandler = customSuccessHandler;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -39,8 +44,9 @@ public class SecurityConfig {
         //oauth2
         http
                 .oauth2Login((oauth2) -> oauth2
-                        .userInfoEndpoint((userInfoEndpointConfig -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService)))
+                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
+                                .userService(customOAuth2UserService))
+                        .successHandler(customSuccessHandler)
                 );
 
         //경로별 인가 작업
