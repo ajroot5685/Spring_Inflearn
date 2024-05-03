@@ -1,5 +1,6 @@
 package com.example.testOAuth2JWT.config;
 
+import com.example.testOAuth2JWT.jwt.JWTFilter;
 import com.example.testOAuth2JWT.jwt.JWTUtil;
 import com.example.testOAuth2JWT.oauth2.CustomSuccessHandler;
 import com.example.testOAuth2JWT.service.CustomOAuth2UserService;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -40,6 +42,10 @@ public class SecurityConfig {
         //HTTP Basic 인증 방식 disable
         http
                 .httpBasic(AbstractHttpConfigurer::disable);
+
+        //JWTFilter 추가
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         //oauth2
         http
