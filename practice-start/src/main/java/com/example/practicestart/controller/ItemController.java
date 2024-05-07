@@ -1,6 +1,7 @@
 package com.example.practicestart.controller;
 
 import com.example.practicestart.domain.Item;
+import com.example.practicestart.dto.ItemSearchCond;
 import com.example.practicestart.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("")
-    public String items(Model model) {
-        List<Item> items = itemService.findItems();
+    public String items(@ModelAttribute("itemSearch") ItemSearchCond cond, Model model) {
+        List<Item> items = itemService.findItems(cond);
         model.addAttribute("items", items);
 
         return "item/items";
