@@ -2,6 +2,7 @@ package com.example.practicestart.controller;
 
 import com.example.practicestart.domain.Item;
 import com.example.practicestart.domain.Order;
+import com.example.practicestart.dto.ItemSearchCond;
 import com.example.practicestart.service.ItemService;
 import com.example.practicestart.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class OrderController {
     @GetMapping("/add")
     public String createForm(Model model) {
 
-        List<Item> items = itemService.findItems();
+        List<Item> items = itemService.findItems(new ItemSearchCond());
 
         model.addAttribute("items", items);
 

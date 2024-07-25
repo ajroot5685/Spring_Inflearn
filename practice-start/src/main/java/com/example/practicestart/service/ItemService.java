@@ -1,6 +1,7 @@
 package com.example.practicestart.service;
 
 import com.example.practicestart.domain.Item;
+import com.example.practicestart.dto.ItemSearchCond;
 import com.example.practicestart.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class ItemService {
         return itemRepository.findById(id);
     }
 
-    public List<Item> findItems(){
-        return itemRepository.findAll();
+    public List<Item> findItems(ItemSearchCond cond){
+        return itemRepository.findAll(cond);
     }
 
     @Transactional
