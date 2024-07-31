@@ -1,54 +1,37 @@
-package com.example.demo.user.service;
+package com.example.demo.medium.controller;
 
 import com.example.demo.common.domain.exception.CertificationCodeNotMatchedException;
 import com.example.demo.common.domain.exception.ResourceNotFoundException;
-import com.example.demo.mock.FakeMailSernder;
-import com.example.demo.mock.FakeUserRepository;
-import com.example.demo.mock.TestClockHolder;
-import com.example.demo.mock.TestUuidHolder;
 import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserCreate;
 import com.example.demo.user.domain.UserStatus;
 import com.example.demo.user.domain.UserUpdate;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.demo.user.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.BDDMockito.any;
 
-public class UserServiceTest {
+@SpringBootTest
+@SqlGroup({
+        @Sql(value = "/sql/user-repository-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD),
+        @Sql(value = "/sql/delete-all-data.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+})
+class UserServiceTest {
 
+    @Autowired
     private UserService userService;
-
-    @BeforeEach
-    void init() {
-        FakeMailSernder fakeMailSernder = new FakeMailSernder();
-        FakeUserRepository fakeUserRepository = new FakeUserRepository();
-        this.userService = UserService.builder()
-                .uuidHolder(new TestUuidHolder("aaaaaaaa-aaaaaaa-aaaa-aaaaaaaaa-aaaaaa"))
-                .clockHolder(new TestClockHolder(1678530673958L))
-                .userRepository(fakeUserRepository)
-                .certificationService(new CertificationService(fakeMailSernder))
-                .build();
-        fakeUserRepository.save(User.builder()
-                .id(1L)
-                .email("kok202@naver.com")
-                .address("Seoul")
-                .nickname("kok202")
-                .certificationCode("aaaaaaaa-aaaaaaa-aaaa-aaaaaaaaa-aaaaaa")
-                .status(UserStatus.ACTIVE)
-                .lastLoginAt(0L)
-                .build());
-        fakeUserRepository.save(User.builder()
-                .id(2L)
-                .email("kok203@naver.com")
-                .address("Seoul")
-                .nickname("kok203")
-                .certificationCode("aaaaaaaa-aaaaaaa-aaaa-aaaaaaaaa-aaaaab")
-                .status(UserStatus.PENDING)
-                .lastLoginAt(0L)
-                .build());
-    }
+    @MockBean
+    private JavaMailSender javaMailSender;
 
     @Test
     void getByEmail은_ACTIVE_상태인_유저를_찾아올_수_있다() {
@@ -104,6 +87,7 @@ public class UserServiceTest {
                 .address("Gyeongi")
                 .nickname("kok202-k")
                 .build();
+        BDDMockito.doNothing().when(javaMailSender).send(any(SimpleMailMessage.class));
 
         // when
         User result = userService.create(userCreateDto);
@@ -111,7 +95,7 @@ public class UserServiceTest {
         // then
         assertThat(result.getId()).isNotNull();
         assertThat(result.getStatus()).isEqualTo(UserStatus.PENDING);
-        assertThat(result.getCertificationCode()).isEqualTo("aaaaaaaa-aaaaaaa-aaaa-aaaaaaaaa-aaaaaa");
+//        assertThat(result.getCertificationCode()).isEqualTo("xxx");
     }
 
     @Test
@@ -140,7 +124,8 @@ public class UserServiceTest {
 
         // then
         User user = userService.getById(1);
-        assertThat(user.getLastLoginAt()).isEqualTo(1678530673958L);
+        assertThat(user.getLastLoginAt()).isGreaterThan(0L);
+//        assertThat(result.getCertificationCode()).isEqualTo("xxx");
     }
 
     @Test
