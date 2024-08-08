@@ -7,19 +7,25 @@ import tobyspring.hellospring.payment.ExRateProviderStub;
 import tobyspring.hellospring.payment.PaymentService;
 
 import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 
 @Configuration
-public class ObjectFactoryTest {
+public class PaymentConfigTest {
 
     @Bean
     public PaymentService paymentService() {
-        return new PaymentService(exRateProvider());
+        return new PaymentService(exRateProvider(), clock());
     }
 
     @Bean
     public ExRateProvider exRateProvider() {
         return new ExRateProviderStub(BigDecimal.valueOf(1_000));
+    }
+
+    @Bean
+    public Clock clock() {
+        return Clock.fixed(Instant.now(), ZoneId.systemDefault());
     }
 }
