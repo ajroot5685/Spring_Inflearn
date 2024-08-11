@@ -12,10 +12,13 @@ public class ClockTest {
 
     // Clock을 이용해서 LocalDateTime.now?
     @Test
-    void clock() {
+    void clock() throws InterruptedException {
         Clock clock = Clock.systemDefaultZone();
 
         LocalDateTime dt1 = LocalDateTime.now(clock);
+
+        Thread.sleep(1);
+
         LocalDateTime dt2 = LocalDateTime.now(clock);
 
         Assertions.assertThat(dt2).isAfter(dt1);
