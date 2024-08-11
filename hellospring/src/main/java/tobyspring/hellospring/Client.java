@@ -5,7 +5,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import tobyspring.hellospring.payment.Payment;
 import tobyspring.hellospring.payment.PaymentService;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 public class Client {

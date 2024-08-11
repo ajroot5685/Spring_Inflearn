@@ -2,8 +2,8 @@ package tobyspring.hellospring;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import tobyspring.hellospring.exrate.WebApiExRateProvider;
 import tobyspring.hellospring.payment.ExRateProvider;
-import tobyspring.hellospring.exrate.SimpleExRateProvider;
 import tobyspring.hellospring.payment.PaymentService;
 
 import java.time.Clock;
@@ -19,7 +19,7 @@ public class PaymentConfig {
 
     @Bean
     public ExRateProvider exRateProvider() {
-        return new SimpleExRateProvider();
+        return new WebApiExRateProvider();
     }
 
     @Bean
