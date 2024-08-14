@@ -22,4 +22,8 @@ public class Order {
         this.no = no;
         this.total = total;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

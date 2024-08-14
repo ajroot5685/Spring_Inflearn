@@ -3,7 +3,6 @@ package tobyspring.hellospring.order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-import tobyspring.hellospring.data.OrderJpaRepository;
 
 import java.math.BigDecimal;
 
@@ -13,7 +12,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final PlatformTransactionManager transactionManager;
 
-    public OrderService(OrderJpaRepository orderRepository, PlatformTransactionManager transactionManager) {
+    public OrderService(OrderRepository orderRepository, PlatformTransactionManager transactionManager) {
         this.orderRepository = orderRepository;
         this.transactionManager = transactionManager;
     }
