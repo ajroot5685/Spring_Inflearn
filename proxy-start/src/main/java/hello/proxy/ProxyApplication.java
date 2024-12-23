@@ -1,11 +1,11 @@
 package hello.proxy;
 
-import hello.proxy.config.v4_postprocessor.BeanPostProcessorConfig;
+import hello.proxy.config.v5_autoproxy.AutoProxyConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-@Import(BeanPostProcessorConfig.class)
+@Import(AutoProxyConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.proxy.app") //주의
 public class ProxyApplication {
 
