@@ -1,6 +1,8 @@
 package hello.embed;
 
 import hello.spring.HelloConfig;
+import java.io.IOException;
+import java.nio.file.Files;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
@@ -10,7 +12,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class EmbedTomcatSpringMain {
 
-    public static void main(String[] args) throws LifecycleException {
+    public static void main(String[] args) throws LifecycleException, IOException {
         System.out.println("EmbedTomcatServletMain.main");
 
         // 톰캣 설정
@@ -26,8 +28,10 @@ public class EmbedTomcatSpringMain {
         // 스프링 MVC 디스패처 서블릿 생성, 스프링 컨테이너 연결
         DispatcherServlet dispatcher = new DispatcherServlet(appContext);
 
+        String docBase = Files.createTempDirectory("tomcat-basedir").toString();
+
         // 디스패처 서블릿 등록
-        Context context = tomcat.addContext("", "/");
+        Context context = tomcat.addContext("", docBase);
         tomcat.addServlet("", "dispatcher", dispatcher);
         context.addServletMappingDecoded("/", "dispatcher");
 
