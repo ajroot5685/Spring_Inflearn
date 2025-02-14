@@ -1,5 +1,10 @@
 .DS_Store
+
+# Gradle 관련 캐시 및 빌드 파일 무시
+.gradle/
 build/
+buildoutputCleanup.lock
+executionHistory.bin
 
 practice-start-test
 
