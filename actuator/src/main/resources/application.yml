@@ -1,4 +1,7 @@
 management:
+  metrics:
+    enable:
+      all: true
   info:
     java:
       enabled: true
