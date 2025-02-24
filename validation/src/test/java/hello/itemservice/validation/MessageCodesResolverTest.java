@@ -22,10 +22,13 @@ public class MessageCodesResolverTest {
     @Test
     void messageCodesResolverField() {
         String[] messageCodes = codesResolver.resolveMessageCodes("required", "item", "itemName", Item.class);
+        for (String messageCode : messageCodes) {
+            System.out.println("messageCode = " + messageCode);
+        }
         assertThat(messageCodes).containsExactly(
                 "required.item.itemName",
                 "required.itemName",
-                "required.hello.itemservice.domain.item.Item", // required.java.lang.String에서 변경됨
+                "required.hello.itemservice.domain.item.Item", // 실 코드에서는 required.java.lang.String가 들어가는데 테스트에스는 이게 뜸
                 "required"
         );
     }
